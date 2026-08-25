@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Surprise For Prince 💙</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0b1026,#172554,#312e81);
+  color:white;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Background stars */
+#stars{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.star{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+  from{opacity:.2;transform:scale(.7);}
+  to{opacity:1;transform:scale(1.5);}
+}
+
+/* Floating hearts */
+.float{
+  position:fixed;
+  bottom:-50px;
+  z-index:0;
+  animation:floatUp linear infinite;
+  opacity:.7;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-115vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* Main card */
+.card{
+  width:90%;
+  max-width:480px;
+  max-height:88vh;
+  overflow-y:auto;
+  position:relative;
+  z-index:2;
+  text-align:center;
+  padding:28px 22px;
+  border-radius:30px;
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.hidden{
+  display:none;
+}
+
+.show{
+  display:block;
+  animation:appear .7s ease;
+}
+
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(25px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+h1{
+  font-size:31px;
+  margin-bottom:14px;
+  color:#bae6fd;
+}
+
+p{
+  font-size:16px;
+  line-height:1.65;
+  color:#eef2ff;
+}
+
+.big-emoji{
+  font-size:70px;
+  margin-bottom:15px;
+  animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+  50%{transform:translateY(-10px) rotate(6deg);}
+}
+
+/* Buttons */
+button{
+  margin-top:22px;
+  padding:14px 25px;
+  border:none;
+  border-radius:50px;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  background:linear-gradient(135deg,#38bdf8,#6366f1);
+  box-shadow:0 6px 20px rgba(56,189,248,.35);
+  transition:.25s;
+}
+
+button:hover{
+  transform:scale(1.06);
+}
+
+/* Gift */
+.gift{
+  font-size:85px;
+  animation:giftMove 1.5s infinite;
+}
+
+@keyframes giftMove{
+  50%{transform:rotate(-8deg) scale(1.08);}
+}
+
+/* Candle */
+.cake{
+  position:relative;
+  width:210px;
+  height:135px;
+  margin:25px auto 5px;
+}
+
+.cake-top{
+  position:absolute;
+  bottom:0;
+  width:210px;
+  height:80px;
+  background:linear-gradient(#f9a8d4,#f472b6);
+  border-radius:20px 20px 30px 30px;
+  border-bottom:8px solid #db2777;
+}
+
+.icing{
+  position:absolute;
+  bottom:72px;
+  left:0;
+  width:210px;
+  height:25px;
+  background:#fff;
+  border-radius:50%;
+}
+
+.candle{
+  position:absolute;
+  bottom:97px;
+  width:12px;
+  height:40px;
+  background:repeating-linear-gradient(
+    45deg,
+    #facc15,
+    #facc15 5px,
+    #fff 5px,
+    #fff 10px
+  );
+  border-radius:5px;
+}
+
+.c1{left:45px;}
+.c2{left:98px;}
+.c3{left:153px;}
+
+.flame{
+  position:absolute;
+  top:-20px;
+  left:1px;
+  width:10px;
+  height:18px;
+  background:#fbbf24;
+  border-radius:50% 50% 50% 50%;
+  box-shadow:0 0 18px #facc15;
+  animation:flicker .5s infinite alternate;
+}
+
+@keyframes flicker{
+  to{transform:scale(.8) rotate(5deg);}
+}
+
+.off{
+  display:none;
+}
+
+/* Bouquet */
+.bouquet{
+  font-size:95px;
+  margin:20px 0;
+  animation:bouquetPop 1s ease;
+}
+
+@keyframes bouquetPop{
+  0%{transform:scale(0) rotate(-20deg);}
+  70%{transform:scale(1.15);}
+  100%{transform:scale(1);}
+}
+
+/* Cake slice */
+.slice-area{
+  height:180px;
+  position:relative;
+  margin-top:10px;
+}
+
+.cake-full{
+  font-size:105px;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  animation:cutCake 2s forwards;
+}
+
+.slice{
+  font-size:65px;
+  position:absolute;
+  left:50%;
+  top:75px;
+  opacity:0;
+  transform:translateX(-50%);
+}
+
+.slice.show-slice{
+  opacity:1;
+  animation:sliceMove 2s forwards;
+}
+
+@keyframes cutCake{
+  0%{transform:translateX(-50%) scale(1);}
+  100%{transform:translateX(-75%) scale(.75);opacity:.45;}
+}
+
+@keyframes sliceMove{
+  0%{
+    opacity:0;
+    transform:translateX(-50%) scale(.2);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(35px) translateY(-5px) rotate(8deg) scale(1);
+  }
+}
+
+/* Message box */
+.message{
+  text-align:left;
+  padding:22px;
+  margin-top:10px;
+  border-radius:22px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(186,230,253,.22);
+}
+
+.message p{
+  font-size:16px;
+}
+
+/* Hug */
+.hug-area{
+  position:relative;
+  height:150px;
+  margin:15px 0;
+}
+
+.person{
+  position:absolute;
+  bottom:5px;
+  font-size:85px;
+  animation:none;
+}
+
+.left-person{
+  left:8%;
+}
+
+.right-person{
+  right:8%;
+}
+
+.hug-now .left-person{
+  animation:leftHug 1.8s forwards;
+}
+
+.hug-now .right-person{
+  animation:rightHug 1.8s forwards;
+}
+
+@keyframes leftHug{
+  to{
+    left:33%;
+    transform:rotate(8deg);
+  }
+}
+
+@keyframes rightHug{
+  to{
+    right:33%;
+    transform:rotate(-8deg);
+  }
+}
+
+.hug-heart{
+  position:absolute;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  font-size:45px;
+  opacity:0;
+}
+
+.hug-now .hug-heart{
+  animation:heartPop 2s forwards;
+}
+
+@keyframes heartPop{
+  50%{opacity:1;transform:translateX(-50%) scale(1.4);}
+  100%{opacity:1;transform:translateX(-50%) translateY(-20px);}
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  top:-20px;
+  width:10px;
+  height:14px;
+  z-index:20;
+  animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+  }
+}
+
+.small{
+  color:#c4b5fd;
+  margin-top:16px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- PAGE 1 -->
+<div class="card show" id="page1">
+  <div class="gift">🎁</div>
+
+  <h1>Heyyy Prince! 👀💙</h1>
+
+  <p>
+    Aaj ka din thoda special hai...<br>
+    kyunki aaj kisi <b>bahut special Mitra</b> ka birthday hai 😌✨
+  </p>
+
+  <button onclick="goTo('page1','page2')">
+    Open Your Surprise 🎁
+  </button>
+</div>
+
+
+<!-- PAGE 2 : WISH -->
+<div class="card hidden" id="page2">
+  <div class="big-emoji">✨</div>
+
+  <h1>Make A Wish, Mitra 🤍</h1>
+
+  <p>
+    Aankhein ek second ke liye band karo...<br>
+    dil se kuch beautiful sa wish maango ✨<br><br>
+    Ho gaya? 👀
+  </p>
+
+  <button onclick="goTo('page2','page3')">
+    I Made My Wish 🤍
+  </button>
+</div>
+
+
+<!-- PAGE 3 : BLOW CANDLES -->
+<div class="card hidden" id="page3">
+
+  <h1>Now Blow The Candles 🕯️</h1>
+
+  <p>
+    Ek deep sa breath lo... aur phuuuu! 💨😂
+  </p>
+
+  <div class="cake">
+    <div class="cake-top"></div>
+    <div class="icing"></div>
+
+    <div class="candle c1"><div class="flame"></div></div>
+    <div class="candle c2"><div class="flame"></div></div>
+    <div class="candle c3"><div class="flame"></div></div>
+  </div>
+
+  <button onclick="blowCandles()">
+    PHUUUU 💨🕯️
+  </button>
+
+  <div id="afterBlow" class="hidden">
+    <p style="margin-top:20px;">
+      Yayyy! 🎉 Candle blow ho gayi!<br>
+      Hope tumhari wish zaroor poori ho ✨🤍
+    </p>
+
+    <button onclick="goTo('page3','page4')">
+      Wait... Ek Aur Surprise 👀
+    </button>
+  </div>
+
+</div>
+
+
+<!-- PAGE 4 : BOUQUET -->
+<div class="card hidden" id="page4">
+
+  <div class="bouquet">💐</div>
+
+  <h1>Flowers For You, Bestie 🌷</h1>
+
+  <p>
+    Ye beautiful bouquet mere favourite Mitra ke liye 🤍<br><br>
+    Real flowers nahi de paayi toh socha virtual hi sahi 😭😂<br>
+    Par intention bilkul real hai, okay? 🥹💐
+  </p>
+
+  <button onclick="goTo('page4','page5')">
+    Now Cut The Cake 🎂
+  </button>
+
+</div>
+
+
+<!-- PAGE 5 : CUT CAKE -->
+<div class="card hidden" id="page5">
+
+  <h1>Time To Cut The Cake! 🎂</h1>
+
+  <p>
+    Birthday cake hai Mitra... jaldi cut karo 😭😂
+  </p>
+
+  <div class="slice-area">
+    <div class="cake-full" id="fullCake">🎂</div>
+    <div class="slice" id="cakeSlice">🍰</div>
+  </div>
+
+  <button onclick="cutCake()" id="cutBtn">
+    CUT THE CAKE 🔪🎂
+  </button>
+
+  <div id="afterCut" class="hidden">
+    <p class="small">
+      Cake cut ho gaya!!! 🍰🎉<br>
+      Ek slice meri taraf bhi bhej dena 😭🤣
+    </p>
+
+    <button onclick="goTo('page5','page6')">
+      Your Birthday Letter 💌
+    </button>
+  </div>
+
+</div>
+
+
+<!-- PAGE 6 : LETTER -->
+<div class="card hidden" id="page6">
+
+  <div class="big-emoji">💌</div>
+
+  <h1>For My Special Mitra 🤍</h1>
+
+  <div class="message">
+    <p>
+
+      <b>Happy Birthday, Prince! 🎂🤍</b><br><br>
+
+      Sach bolu, mujhe kabhi-kabhi samajh hi nahi aata ki
+      hamari friendship ko words mein kaise explain karun...
+      kyunki kuch relationships bas words se zyada special hote hain.
+      Aur hamari friendship mere liye bilkul waisi hi hai. 🥹🤍<br><br>
+
+      <b>4 years...</b> aur pata hi nahi chala itna time kab nikal gaya.
+      Itne saalon mein humne saath kitni masti ki, kitni stupid si
+      baaton par hase, kitni random memories banayi aur apni school
+      life ka itna beautiful part saath spend kiya. 🏫✨<br><br>
+
+      School ke woh din shayad wapas kabhi exactly waise nahi aayenge,
+      lekin unki memories hamesha rahengi... aur un memories ka ek
+      bahut special part <b>tum ho, Prince.</b> 🤍<br><br>
+
+      Tum woh person ho jisse main almost har cheez share karti hoon—
+      meri khushi, meri excitement, meri problems, meri tension,
+      meri random bakwaas... literally sab kuch 😭😂
+      Aur honestly, itna comfort har kisi ke saath nahi milta.<br><br>
+
+      Mere liye tum sirf ek normal friend nahi ho.
+      <b>You're my only one bestfriend, my Mitra, my partner in crime,
+      my special one and someone who is genuinely very close to my heart.</b>
+      🥹🤍<br><br>
+
+      Hamari friendship ki sabse achhi baat shayad ye hai ki humein
+      har waqt kuch extraordinary karne ki zarurat nahi hoti.
+      Kabhi normal si baatein, kabhi random masti, kabhi faltu ka drama...
+      aur wahi chhoti-chhoti cheezein memories ban jaati hain. 😭😂<br><br>
+
+      Bas aise hi hamesha khush rehna, mast rehna aur apni wahi
+      special si personality kabhi mat khona. ✨
+      I genuinely wish ki tumhari life mein bahut saari happiness,
+      peace, success aur beautiful moments aayein.<br><br>
+
+      Aur ek baat yaad rakhna...
+      <b>main shayad har baar words mein nahi bolti, but you truly
+      mean a lot to me.</b> 🤍<br><br>
+
+      Thank you for these beautiful 4 years.
+      Thank you for all the memories.
+      Aur sabse important... thank you for being <b>you.</b> 🥹✨<br><br>
+
+      <b>Happy Birthday once again, my Mitra! 🎂🤍</b><br>
+      Stay happy, stay amazing, aur please meri life mein aise hi
+      bane rehna for manyyyy more years of masti and memories. 😤😂🤍
+
+    </p>
+  </div>
+
+  <button onclick="goTo('page6','page7')">
+    One Last Thing... 🥹
+  </button>
+
+</div>
+
+
+<!-- PAGE 7 : HUG -->
+<div class="card hidden" id="page7">
+
+  <div class="big-emoji">🫂</div>
+
+  <h1>A Big Hug For You, Mitra 🤍</h1>
+
+  <div class="hug-area" id="hugArea">
+    <div class="person left-person">👩🏻</div>
+    <div class="person right-person">👦🏻</div>
+    <div class="hug-heart">💙</div>
+  </div>
+
+  <p>
+    Agar main aaj tumhare paas hoti na...<br>
+    toh cake cut hone ke baad ye wala hug zaroor deti 🥹🫂<br><br>
+
+    Ekdum tight wala hug... but zyada emotional mat ho jana,
+    warna main hasne lagungi 😭😂🤍
+  </p>
+
+  <button onclick="giveHug()" id="hugBtn">
+    GIVE ME THE HUG 🫂
+  </button>
+
+  <div id="hugMessage" class="hidden">
+    <p style="margin-top:22px;">
+      🥹🤍🫂<br><br>
+
+      <b>Happy Birthday, my special one!</b><br><br>
+
+      Thank you for being my favourite Mitra,
+      my one and only bestfriend and my partner in crime. 😭😂🤍<br><br>
+
+      <b>Replacement allowed nahi hai.</b><br>
+      Terms & conditions apply: Bestie position permanently occupied 😤🤣💙<br><br>
+
+      Here's to <b>4 beautiful years</b> and manyyyyy more memories,
+      laughs, stupid jokes and adventures together! ✨<br><br>
+
+      <b>Always stay happy, Prince. 🤍</b><br><br>
+
+      — <b>Khushi 🫶</b>
+    </p>
+  </div>
+
+</div>
+
+
+<script>
+
+/* Stars */
+const stars=document.getElementById("stars");
+
+for(let i=0;i<80;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.left=Math.random()*100+"%";
+  star.style.top=Math.random()*100+"%";
+  star.style.animationDelay=Math.random()*2+"s";
+  stars.appendChild(star);
+}
+
+/* Floating emojis */
+const floatingEmojis=["💙","🤍","✨","🩵","⭐"];
+
+for(let i=0;i<14;i++){
+  let item=document.createElement("div");
+  item.className="float";
+  item.innerHTML=floatingEmojis[Math.floor(Math.random()*floatingEmojis.length)];
+  item.style.left=Math.random()*100+"%";
+  item.style.fontSize=(15+Math.random()*18)+"px";
+  item.style.animationDuration=(7+Math.random()*7)+"s";
+  item.style.animationDelay=(Math.random()*6)+"s";
+  document.body.appendChild(item);
+}
+
+/* Page navigation */
+function goTo(current,next){
+  document.getElementById(current).style.display="none";
+  document.getElementById(next).classList.remove("hidden");
+  document.getElementById(next).classList.add("show");
+}
+
+/* Blow candles */
+function blowCandles(){
+  const flames=document.querySelectorAll(".flame");
+
+  flames.forEach(flame=>{
+    flame.classList.add("off");
+  });
+
+  document.getElementById("afterBlow").classList.remove("hidden");
+  document.getElementById("afterBlow").classList.add("show");
+
+  createConfetti(50);
+}
+
+/* Cut cake */
+function cutCake(){
+  document.getElementById("fullCake").style.animation="cutCake 2s forwards";
+
+  const slice=document.getElementById("cakeSlice");
+  slice.classList.add("show-slice");
+
+  document.getElementById("cutBtn").style.display="none";
+
+  setTimeout(()=>{
+    document.getElementById("afterCut").classList.remove("hidden");
+    document.getElementById("afterCut").classList.add("show");
+    createConfetti(140);
+  },1200);
+}
+
+/* Confetti */
+function createConfetti(amount){
+
+  const colors=[
+    "#38bdf8",
+    "#818cf8",
+    "#f472b6",
+    "#facc15",
+    "#34d399",
+    "#ffffff",
+    "#c4b5fd"
+  ];
+
+  for(let i=0;i<amount;i++){
+
+    let confetti=document.createElement("div");
+    confetti.className="confetti";
+
+    confetti.style.left=Math.random()*100+"vw";
+    confetti.style.background=
+      colors[Math.floor(Math.random()*colors.length)];
+
+    confetti.style.animationDuration=(2+Math.random()*3)+"s";
+    confetti.style.transform=
+      `rotate(${Math.random()*360}deg)`;
+
+    document.body.appendChild(confetti);
+
+    setTimeout(()=>{
+      confetti.remove();
+    },5000);
+  }
+}
+
+/* Hug */
+function giveHug(){
+
+  document.getElementById("hugArea").classList.add("hug-now");
+
+  document.getElementById("hugBtn").style.display="none";
+
+  setTimeout(()=>{
+    document.getElementById("hugMessage").classList.remove("hidden");
+    document.getElementById("hugMessage").classList.add("show");
+
+    createConfetti(100);
+  },1700);
+}
+
+</script>
+
+</body>
+</html>
